@@ -1,3 +1,3 @@
-python3-xlib
-pyautogui
-num2words
+python3-xlib >=0.15
+pyautogui >=0.9.36
+num2words >=0.5.6
