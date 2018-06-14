@@ -1,0 +1,1 @@
+(hold|release|press) (?P<Key>.*[^\s])
