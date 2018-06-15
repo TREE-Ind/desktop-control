@@ -24,12 +24,11 @@ import pyautogui
 import platform
 from num2words import num2words
 
-__author__ = 'eClarity'
+__author__ = 'TREE_Ind'
 
-
-class AutoguiSkill(MycroftSkill):
+class DesktopControlSkill(MycroftSkill):
     def __init__(self):
-        super(AutoguiSkill, self).__init__(name="AutoguiSkill")
+        super(DesktopControlSkill, self).__init__(name="DesktopControlSkill")
 
     def initialize(self):
         
@@ -37,24 +36,16 @@ class AutoguiSkill(MycroftSkill):
         self.med_amount = 6
         self.lg_amount = 12
 
-        #self.register_intent_file('scroll.intent', self.handle_scroll)
         self.register_entity_file("direction.entity")
         self.register_entity_file("smallscroll.entity")
         self.register_entity_file("medscroll.entity")
         self.register_entity_file("largescroll.entity")
+        self.register_entity_file("down.entity")
         
         self.register_entity_file("x.entity")
         self.register_entity_file("y.entity")
         
         self.register_entity_file("key.entity")
-
-        hold_key_intent = IntentBuilder("HoldKeyIntent"). \
-            require("HoldKeyKeyword").require("Key").build()
-        self.register_intent(hold_key_intent, self.handle_hold_key_intent)
-
-        release_key_intent = IntentBuilder("ReleaseKeyIntent"). \
-            require("ReleaseKeyKeyword").require("Key").build()
-        self.register_intent(release_key_intent, self.handle_release_key_intent)
 
         select_combination_intent = IntentBuilder("SelectCombinationIntent"). \
             require("SelectAllKeyword").optionally("CopyKeyword"). \
@@ -63,44 +54,30 @@ class AutoguiSkill(MycroftSkill):
                                         optionally("DeleteKeyword").build()
         self.register_intent(select_combination_intent, self.handle_select_combination_intent)
 
-
-        copy_intent = IntentBuilder("CopyIntent"). \
-            require("CopyKeyword").build()
-        self.register_intent(copy_intent, self.handle_copy_intent)
-
-        cut_intent = IntentBuilder("CutIntent"). \
-            require("CutKeyword").build()
-        self.register_intent(cut_intent, self.handle_cut_intent)
-
-        paste_intent = IntentBuilder("PasteIntent"). \
-            require("PasteKeyword").build()
-        self.register_intent(paste_intent, self.handle_paste_intent)
-
     @intent_file_handler("scroll.intent")
     def handle_scroll(self, message):
         direction = message.data.get("direction")
         if message.data.get("smallscroll"):
-            if direction == "down":
-                scroll_down = self.sm_amount * -1
+            if message.data.get("down"):
+                scroll_down = self.sm_amount
                 pyautogui.scroll(scroll_down)
-            elif direction == "up":
-                scroll_up = self.sm_amount
+            if message.data.get("up"):
+                scroll_up = self.sm_amount * -1
                 pyautogui.scroll(scroll_up)
         elif message.data.get("medscroll"):
-            if direction == "down":
-                scroll_down = self.med_amount * -1
+            if message.data.get("down"):
+                scroll_down = self.med_amount
                 pyautogui.scroll(scroll_down)
-            elif direction == "up":
-                scroll_up = self.med_amount
+            if message.data.get("up"):
+                scroll_up = self.med_amount * -1
                 pyautogui.scroll(scroll_up)
         elif message.data.get("largescroll"):
-            if direction == "down":
-                scroll_down = self.lg_amount * -1
+            if message.data.get("down"):
+                scroll_down = self.lg_amount
                 pyautogui.scroll(scroll_down)
-            elif direction == "up":
-                scroll_up = self.lg_amount
+            if message.data.get("up"):
+                scroll_up = self.lg_amount * -1
                 pyautogui.scroll(scroll_up)
-
 
     @intent_handler(IntentBuilder("TypeIntent").require("TypeKeyword").require("Text"))
     def handle_type_intent(self, message):
@@ -114,15 +91,6 @@ class AutoguiSkill(MycroftSkill):
         y = message.data.get("y")
         pyautogui.moveTo(int(x), int(y))
         self.speak_dialog("absolutemousemove", {"x": x, "y": y})
-
-    def handle_mouse_scroll_right_intent(self, message):
-        if platform.system().lower().startswith('lin'):
-            self.speak('scrolling right now')
-            scroll = message.data.get('Scroll')
-            scroll_right = int(scroll)
-            pyautogui.hscroll(scroll_right)
-        else:
-            self.speak('Sorry, I cannot scroll right on your current operating system')
     
     @intent_handler(IntentBuilder("ScreenResIntent").require("ScreenResKeyword"))
     def handle_screen_res_intent(self, message):
@@ -136,29 +104,33 @@ class AutoguiSkill(MycroftSkill):
     @intent_file_handler("presskey.intent")
     def handle_press_key_intent(self, message):
         key = message.data.get("key")
-        self.speak("Pressing %s" % key)
+        self.speak_dialog("keypress", {"key": key})
         key = str(key)
-        print(key)
         pyautogui.press(key)
 
+    @intent_file_handler("holdkey.intent")
     def handle_hold_key_intent(self, message):
-        key = message.data.get('Key')
-        self.speak("Holding down %s key" % key)
+        key = message.data.get("key")
+        self.speak_dialog("keyhold", {"key": key})
         pyautogui.keyDown(key)
 
+    @intent_file_handler("releasekey.intent")
     def handle_release_key_intent(self, message):
-        key = message.data.get('Key')
-        self.speak("Releasing %s key" % key)
+        key = message.data.get('key')
+        self.speak_dialog("keyrelease", {"key": key})
         pyautogui.keyUp(key)
 
+    @intent_handler(IntentBuilder("CopyIntent").require("CopyKeyword"))
     def handle_copy_intent(self, message):
         pyautogui.hotkey("ctrl", "c")
         self.speak("Okay Copied!")
 
+    @intent_handler(IntentBuilder("CutIntent").require("CutKeyword"))
     def handle_cut_intent(self, message):
         self.speak("Cutting to clipboard")
         pyautogui.hotkey("ctrl", "x")
 
+    @intent_handler(IntentBuilder("PasteIntent").require("PasteKeyword"))
     def handle_paste_intent(self, message):
         self.speak("Pasting from clipboard")
         pyautogui.hotkey("ctrl", "v")
@@ -185,4 +157,4 @@ class AutoguiSkill(MycroftSkill):
 
 
 def create_skill():
-    return AutoguiSkill()
+    return DesktopControlSkill()
