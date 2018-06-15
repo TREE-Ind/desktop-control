@@ -1,9 +1,0 @@
- {
-  "utterance": "scroll down a little",
-  "set_context": {"_TestRunner": "data", "test": ""},
-  "intent_type": "scroll.intent",
-  "intent": {
-    "down": "down",
-    "smallscroll": "little"
-  }
-}
