@@ -1,5 +1,0 @@
-{
-  "utterance": "select all and delete",
-  "intent_type": "SelectCombinationIntent",
-  "expected_response": "deleting"
-}
