@@ -1,0 +1,6 @@
+{
+  "utterance": "hold the b key",
+  "set_context": {"_TestRunner": "data", "test": ""},
+  "intent_type": "holdkey.intent",
+  "expected_dialog": "keyhold"
+}

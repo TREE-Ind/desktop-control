@@ -1,0 +1,5 @@
+{
+  "utterance": "release the b key",
+  "intent_type": "releasekey.intent",
+  "expected_dialog": "keyrelease"
+}
