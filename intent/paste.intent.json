@@ -1,6 +1,0 @@
-{
-  "utterance": "paste",
-  "set_context": {"_TestRunner": "data", "test": ""},
-  "intent_type": "PasteIntent",
-  "expected_response": "Pasting from clipboard"
-}
