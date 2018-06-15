@@ -1,6 +1,0 @@
-{
-  "utterance": "press the b key",
-  "set_context": {"_TestRunner": "data", "test": ""},
-  "intent_type": "presskey.intent",
-  "expected_dialog": "keypress"
-}
