@@ -1,5 +1,0 @@
-{
-  "utterance": "cut",
-  "intent_type": "CutIntent",
-  "expected_response": "Cutting to clipboard"
-}
