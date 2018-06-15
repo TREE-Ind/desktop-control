@@ -1,1 +1,1 @@
-(hold|release|press) (?P<Key>.*[^\s])
+(hold|release|press) (the) (?P<Key>.*) (key)

@@ -1,0 +1,3 @@
+scroll {direction} a {smallscroll}
+scroll {direction} a {largescroll}
+scroll {direction} {medscroll}

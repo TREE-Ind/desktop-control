@@ -17,8 +17,8 @@
 
 from adapt.intent import IntentBuilder
 
-from mycroft.skills.core import MycroftSkill
-from mycroft.util.log import getLogger
+from mycroft.skills.core import MycroftSkill, intent_handler, intent_file_handler
+from mycroft.util.log import LOG
 
 import pyautogui
 import platform
@@ -26,41 +26,27 @@ from num2words import num2words
 
 __author__ = 'eClarity'
 
-LOGGER = getLogger(__name__)
-
 
 class AutoguiSkill(MycroftSkill):
     def __init__(self):
         super(AutoguiSkill, self).__init__(name="AutoguiSkill")
 
     def initialize(self):
-        type_intent = IntentBuilder("TypeIntent"). \
-            require("TypeKeyword").require("Text").build()
-        self.register_intent(type_intent, self.handle_type_intent)
+        
+        self.sm_amount = 2
+        self.med_amount = 6
+        self.lg_amount = 12
 
-        mouse_absolute_intent = IntentBuilder("MouseAbsoluteIntent"). \
-            require("MouseAbsoluteKeyword").require("X").require("Y").build()
-        self.register_intent(mouse_absolute_intent, self.handle_mouse_absolute_intent)
-
-        mouse_scroll_down_intent = IntentBuilder("MouseScrollDownIntent"). \
-            require("MouseScrollDownKeyword").require("Scroll").build()
-        self.register_intent(mouse_scroll_down_intent, self.handle_mouse_scroll_down_intent)
-
-        mouse_scroll_up_intent = IntentBuilder("MouseScrollUpIntent"). \
-            require("MouseScrollUpKeyword").require("Scroll").build()
-        self.register_intent(mouse_scroll_up_intent, self.handle_mouse_scroll_up_intent)
-
-        mouse_scroll_right_intent = IntentBuilder("MouseScrollRightIntent"). \
-            require("MouseScrollRightKeyword").require("Scroll").build()
-        self.register_intent(mouse_scroll_right_intent, self.handle_mouse_scroll_right_intent)
-
-        screen_res_intent = IntentBuilder("ScreenResIntent"). \
-            require("ScreenResKeyword").build()
-        self.register_intent(screen_res_intent, self.handle_screen_res_intent)
-
-        press_key_intent = IntentBuilder("PressKeyIntent"). \
-            require("PressKeyKeyword").require("Key").build()
-        self.register_intent(press_key_intent, self.handle_press_key_intent)
+        #self.register_intent_file('scroll.intent', self.handle_scroll)
+        self.register_entity_file("direction.entity")
+        self.register_entity_file("smallscroll.entity")
+        self.register_entity_file("medscroll.entity")
+        self.register_entity_file("largescroll.entity")
+        
+        self.register_entity_file("x.entity")
+        self.register_entity_file("y.entity")
+        
+        self.register_entity_file("key.entity")
 
         hold_key_intent = IntentBuilder("HoldKeyIntent"). \
             require("HoldKeyKeyword").require("Key").build()
@@ -90,28 +76,44 @@ class AutoguiSkill(MycroftSkill):
             require("PasteKeyword").build()
         self.register_intent(paste_intent, self.handle_paste_intent)
 
+    @intent_file_handler("scroll.intent")
+    def handle_scroll(self, message):
+        direction = message.data.get("direction")
+        if message.data.get("smallscroll"):
+            if direction == "down":
+                scroll_down = self.sm_amount * -1
+                pyautogui.scroll(scroll_down)
+            elif direction == "up":
+                scroll_up = self.sm_amount
+                pyautogui.scroll(scroll_up)
+        elif message.data.get("medscroll"):
+            if direction == "down":
+                scroll_down = self.med_amount * -1
+                pyautogui.scroll(scroll_down)
+            elif direction == "up":
+                scroll_up = self.med_amount
+                pyautogui.scroll(scroll_up)
+        elif message.data.get("largescroll"):
+            if direction == "down":
+                scroll_down = self.lg_amount * -1
+                pyautogui.scroll(scroll_down)
+            elif direction == "up":
+                scroll_up = self.lg_amount
+                pyautogui.scroll(scroll_up)
+
+
+    @intent_handler(IntentBuilder("TypeIntent").require("TypeKeyword").require("Text"))
     def handle_type_intent(self, message):
         self.speak_dialog("typing")
         text = message.data.get('Text')
         pyautogui.typewrite(text, interval=0.05)
 
-    def handle_mouse_absolute_intent(self, message):
-        self.speak('moving mouse now')
-    #X = message.data.get('X')
-    #Y = message.data.get('Y')
-        #pyautogui.moveTo(X, Y)
-
-    def handle_mouse_scroll_down_intent(self, message):
-        self.speak('scrolling down now')
-        scroll = message.data.get('Scroll')
-        scroll_down = int(scroll) * -1
-        pyautogui.scroll(scroll_down)
-
-    def handle_mouse_scroll_up_intent(self, message):
-        self.speak('scrolling up now')
-        scroll = message.data.get('Scroll')
-        scroll_up = int(scroll)
-        pyautogui.scroll(scroll_up)
+    @intent_file_handler("absolutemousemove.intent")
+    def handle_absolute_mouse_move_intent(self, message):
+        x = message.data.get("x")
+        y = message.data.get("y")
+        pyautogui.moveTo(int(x), int(y))
+        self.speak_dialog("absolutemousemove", {"x": x, "y": y})
 
     def handle_mouse_scroll_right_intent(self, message):
         if platform.system().lower().startswith('lin'):
@@ -121,20 +123,23 @@ class AutoguiSkill(MycroftSkill):
             pyautogui.hscroll(scroll_right)
         else:
             self.speak('Sorry, I cannot scroll right on your current operating system')
-
+    
+    @intent_handler(IntentBuilder("ScreenResIntent").require("ScreenResKeyword"))
     def handle_screen_res_intent(self, message):
         screen = pyautogui.size()
         resx = screen[0]
         resy = screen[1]
         responsex = num2words(resx)
         responsey = num2words(resy)
-        self.speak("Your screen resolution is %s by %s" % (responsex, responsey))
+        self.speak_dialog("screenresolution", {"x": responsex, "y": responsey})
 
+    @intent_file_handler("presskey.intent")
     def handle_press_key_intent(self, message):
-        key = message.data.get('Key')
+        key = message.data.get("key")
         self.speak("Pressing %s" % key)
-        pyautogui.keyDown(key)
-        pyautogui.keyUp(key)
+        key = str(key)
+        print(key)
+        pyautogui.press(key)
 
     def handle_hold_key_intent(self, message):
         key = message.data.get('Key')
@@ -171,6 +176,8 @@ class AutoguiSkill(MycroftSkill):
             self.speak("deleting")
             pyautogui.keyDown("delete")
             pyautogui.keyUp("delete")
+        else:
+            pass
             
 
     def stop(self):
