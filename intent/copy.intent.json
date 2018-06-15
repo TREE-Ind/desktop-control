@@ -1,0 +1,7 @@
+{
+  "evaluation_timeout": 40,
+  "utterance": "copy to clipboard",
+  "set_context": {"_TestRunner": "data", "test": ""},
+  "intent_type": "CopyIntent",
+  "expected_response": "Okay Copied!"
+}

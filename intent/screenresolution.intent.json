@@ -1,0 +1,8 @@
+{
+  "utterance": "screen resolution",
+  "intent_type": "ScreenResIntent",
+  "intent": {
+    "ScreenResKeyword": "screen resolution"
+  },
+  "expected_dialog": "screenresolution"
+}
