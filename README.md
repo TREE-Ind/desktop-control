@@ -1,8 +1,7 @@
-## Desktop Control
+# Desktop Control
 Desktop control by voice including mouse and keyboard manipulation
 
 ## Description 
-# Desktop Control
 
 A Mycroft AI skill to enable keyboard and mouse manipulation using natural language.
 
