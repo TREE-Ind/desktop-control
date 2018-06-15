@@ -1,5 +1,0 @@
-{
-  "utterance": "select all and cut",
-  "intent_type": "SelectCombinationIntent",
-  "expected_response": "Selecting all*"
-}
