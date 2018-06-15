@@ -41,6 +41,7 @@ class DesktopControlSkill(MycroftSkill):
         self.register_entity_file("medscroll.entity")
         self.register_entity_file("largescroll.entity")
         self.register_entity_file("down.entity")
+        self.register_entity_file("up.entity")
         
         self.register_entity_file("x.entity")
         self.register_entity_file("y.entity")
