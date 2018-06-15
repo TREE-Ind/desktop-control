@@ -1,24 +1,31 @@
-# skill-autogui
-A Mycroft AI skill to enable keyboard and mouse manipulation via voice command using Autogui
+## Desktop Control
+Desktop control by voice including mouse and keyboard manipulation
 
-## Usage:
-* `type Mycroft is awesome`
-* `press enter`
-* `scroll up 10 clicks`
-* `scroll down 10 clicks`
-* `scroll right 10 clicks - Linux only`
-* `hold down key`
-* `release down key`
-* `screen resolution`
+## Description 
+# Desktop Control
 
+A Mycroft AI skill to enable keyboard and mouse manipulation using natural language.
 
-## Known Issues:
+## Recent Updates:
 
-Fuzzy matching will probably be needed for some of the keyboard commands such as "f1" to trigger correctly
+Mouse movement by voice now works, updated for 18.02 version or later of Mycroft
 
-## Todo:
+## Examples 
+* "type Mycroft is awesome"
+* "press enter"
+* "move mouse to 400 and 100"
+* "scroll up a little"
+* "scroll down some"
+* "scroll down a lot"
+* "hold space key"
+* "release space key"
+* "screen resolution"
+* "select all"
+* "select all and copy"
 
-Mouse manipulation code is currently incomplete and not functional - WIP
-Implement more keyboard command and hotkey intents.
+## Credits 
+TREE Industries
 
-Use ScreenLocation to move mouse to Google search bar or other common UI elements directly.  Such as "Move mouse to google search bar"
+## Require 
+platform_plasmoid 
+
