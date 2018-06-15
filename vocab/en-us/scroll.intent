@@ -1,3 +1,6 @@
-scroll {direction} a {smallscroll}
-scroll {direction} a {largescroll}
-scroll {direction} {medscroll}
+scroll {down} a {smallscroll}
+scroll {down} a {largescroll}
+scroll {down} {medscroll}
+scroll {up} a {smallscroll}
+scroll {up} a {largescroll}
+scroll {up} {medscroll}
