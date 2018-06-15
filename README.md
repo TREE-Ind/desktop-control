@@ -1,5 +1,4 @@
 # Desktop Control
-Desktop control by voice including mouse and keyboard manipulation
 
 ## Description 
 
