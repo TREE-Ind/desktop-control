@@ -1,1 +1,0 @@
-(hold|release|press) (the) (?P<Key>.*) (key)
