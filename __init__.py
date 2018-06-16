@@ -57,7 +57,6 @@ class DesktopControlSkill(MycroftSkill):
 
     @intent_file_handler("scroll.intent")
     def handle_scroll(self, message):
-        direction = message.data.get("direction")
         if message.data.get("smallscroll"):
             if message.data.get("down"):
                 scroll_down = self.sm_amount

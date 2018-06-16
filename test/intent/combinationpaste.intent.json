@@ -1,0 +1,5 @@
+{
+  "utterance": "select all and paste",
+  "intent_type": "SelectCombinationIntent",
+  "expected_response": "Selecting all*"
+}

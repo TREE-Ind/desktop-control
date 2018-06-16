@@ -1,0 +1,10 @@
+{
+  "utterance": "type something",
+  "set_context": {"_TestRunner": "data", "test": ""},
+  "intent_type": "TypeIntent",
+  "intent": {
+  "Text": "something",
+  "TypeKeyword": "type"
+  },
+  "expected_dialog": "typing"
+}

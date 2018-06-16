@@ -1,0 +1,5 @@
+{
+  "utterance": "move mouse to 100 and 100",
+  "intent_type": "absolutemousemove.intent",
+  "expected_dialog": "absolutemousemove"
+}

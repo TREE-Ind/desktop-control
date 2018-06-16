@@ -1,0 +1,9 @@
+{
+  "evaluation_timeout": 40,
+  "set_context": {"_TestRunner": "data", "test": ""},
+  "utterance": "select all",
+  "intent_type": "SelectCombinationIntent",
+  "intent": {
+  "SelectAllKeyword": "select all"
+  }
+}
