@@ -22,6 +22,7 @@ from mycroft.util.log import LOG
 
 import pyautogui
 import platform
+import time
 from num2words import num2words
 
 __author__ = 'TREE_Ind'
@@ -137,6 +138,7 @@ class DesktopControlSkill(MycroftSkill):
     def handle_select_combination_intent(self, message):
         self.speak("Selecting all")
         pyautogui.hotkey("ctrl", "a")
+        time.sleep(1)
         if message.data.get("PasteKeyword"):
             self.handle_paste_intent(message)
         elif message.data.get("CopyKeyword"):
