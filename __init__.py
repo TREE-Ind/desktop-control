@@ -36,7 +36,6 @@ class DesktopControlSkill(MycroftSkill):
         self.med_amount = 6
         self.lg_amount = 12
 
-        self.register_entity_file("direction.entity")
         self.register_entity_file("smallscroll.entity")
         self.register_entity_file("medscroll.entity")
         self.register_entity_file("largescroll.entity")
