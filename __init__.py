@@ -59,24 +59,24 @@ class DesktopControlSkill(MycroftSkill):
     def handle_scroll(self, message):
         if message.data.get("smallscroll"):
             if message.data.get("down"):
-                scroll_down = self.sm_amount
+                scroll_down = self.sm_amount * -1
                 pyautogui.scroll(scroll_down)
             if message.data.get("up"):
-                scroll_up = self.sm_amount * -1
+                scroll_up = self.sm_amount
                 pyautogui.scroll(scroll_up)
         elif message.data.get("medscroll"):
             if message.data.get("down"):
-                scroll_down = self.med_amount
+                scroll_down = self.med_amount * -1
                 pyautogui.scroll(scroll_down)
             if message.data.get("up"):
-                scroll_up = self.med_amount * -1
+                scroll_up = self.med_amount
                 pyautogui.scroll(scroll_up)
         elif message.data.get("largescroll"):
             if message.data.get("down"):
-                scroll_down = self.lg_amount
+                scroll_down = self.lg_amount * -1
                 pyautogui.scroll(scroll_down)
             if message.data.get("up"):
-                scroll_up = self.lg_amount * -1
+                scroll_up = self.lg_amount
                 pyautogui.scroll(scroll_up)
 
     @intent_handler(IntentBuilder("TypeIntent").require("TypeKeyword").require("Text"))
