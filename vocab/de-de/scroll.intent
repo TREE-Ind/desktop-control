@@ -1,0 +1,8 @@
+scroll ein {smallscroll} {down}
+scroll {smallscroll} {down}
+scroll {largescroll} {down}
+scroll {medscroll} {down}
+scroll ein {smallscroll} {up}
+scroll {smallscroll} {up}
+scroll {largescroll} {up}
+scroll {medscroll} {up}
