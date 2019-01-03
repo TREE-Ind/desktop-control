@@ -1,6 +1,6 @@
-scroll {down} a {smallscroll}
-scroll {down} a {largescroll}
-scroll {down} {medscroll}
-scroll {up} a {smallscroll}
-scroll {up} a {largescroll}
-scroll {up} {medscroll}
+scroll {down} a {small}
+scroll {down} a {large}
+scroll {down} {med}
+scroll {up} a {small}
+scroll {up} a {large}
+scroll {up} {med}

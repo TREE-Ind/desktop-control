@@ -36,12 +36,17 @@ class DesktopControlSkill(MycroftSkill):
         self.sm_amount = 2
         self.med_amount = 6
         self.lg_amount = 12
+        self.sm_move_amount = 10
+        self.med_move_amount = 50
+        self.lg_move_amount = 150
 
-        self.register_entity_file("smallscroll.entity")
-        self.register_entity_file("medscroll.entity")
-        self.register_entity_file("largescroll.entity")
+        self.register_entity_file("small.entity")
+        self.register_entity_file("med.entity")
+        self.register_entity_file("large.entity")
         self.register_entity_file("down.entity")
         self.register_entity_file("up.entity")
+        self.register_entity_file("right.entity")
+        self.register_entity_file("left.entity")
         
         self.register_entity_file("x.entity")
         self.register_entity_file("y.entity")
@@ -57,21 +62,21 @@ class DesktopControlSkill(MycroftSkill):
 
     @intent_file_handler("scroll.intent")
     def handle_scroll(self, message):
-        if message.data.get("smallscroll"):
+        if message.data.get("small"):
             if message.data.get("down"):
                 scroll_down = self.sm_amount * -1
                 pyautogui.scroll(scroll_down)
             if message.data.get("up"):
                 scroll_up = self.sm_amount
                 pyautogui.scroll(scroll_up)
-        elif message.data.get("medscroll"):
+        elif message.data.get("med"):
             if message.data.get("down"):
                 scroll_down = self.med_amount * -1
                 pyautogui.scroll(scroll_down)
             if message.data.get("up"):
                 scroll_up = self.med_amount
                 pyautogui.scroll(scroll_up)
-        elif message.data.get("largescroll"):
+        elif message.data.get("large"):
             if message.data.get("down"):
                 scroll_down = self.lg_amount * -1
                 pyautogui.scroll(scroll_down)
@@ -91,6 +96,36 @@ class DesktopControlSkill(MycroftSkill):
         y = message.data.get("y")
         pyautogui.moveTo(int(x), int(y))
         self.speak_dialog("absolutemousemove", {"x": x, "y": y})
+
+    @intent_file_handler("relativemousemove.intent")
+    def handle_relative_mouse_move_intent(self, message):
+        if message.data.get("small"):
+            if message.data.get("down"):
+                move_down = self.sm_move_amount
+                pyautogui.moveRel(0, move_down)
+            if message.data.get("up"):
+                move_up = self.sm_move_amount * -1
+                pyautogui.moveRel(0, move_up)
+            if message.data.get("left"):
+                move_left = self.sm_move_amount * -1
+                pyautogui.moveRel(move_left, 0)
+            if message.data.get("right"):
+                move_right = self.sm_move_amount
+                pyautogui.moveRel(move_right, 0)
+        elif message.data.get("med"):
+            if message.data.get("down"):
+                move_down = self.med_move_amount
+                pyautogui.moveRel(0, move_down)
+            if message.data.get("up"):
+                move_up = self.med_move_amount * -1
+                pyautogui.moveRel(0, move_up)
+        elif message.data.get("large"):
+            if message.data.get("down"):
+                move_down = self.lg_move_amount
+                pyautogui.moveRel(0, move_down)
+            if message.data.get("up"):
+                move_up = self.lg_move_amount * -1
+                pyautogui.moveRel(0, move_up)
     
     @intent_handler(IntentBuilder("ScreenResIntent").require("ScreenResKeyword"))
     def handle_screen_res_intent(self, message):
@@ -119,6 +154,14 @@ class DesktopControlSkill(MycroftSkill):
         key = message.data.get('key')
         self.speak_dialog("keyrelease", {"key": key})
         pyautogui.keyUp(key)
+    
+    @intent_file_handler("next.intent")
+    def handle_next_slide_intent(self, message):
+        pyautogui.press('right')
+
+    @intent_file_handler("previous.intent")
+    def handle_previous_slide_intent(self, message):
+        pyautogui.press('left')
 
     @intent_handler(IntentBuilder("CopyIntent").require("CopyKeyword"))
     def handle_copy_intent(self, message):
