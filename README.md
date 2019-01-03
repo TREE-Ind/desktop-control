@@ -1,14 +1,9 @@
-# Desktop Control
+# <img src='https://rawgithub.com/FortAwesome/Font-Awesome/master/advanced-options/raw-svg/solid/desktop.svg' card_color='#52B54B' width='50' height='50' style='vertical-align:bottom'/> Desktop Control
 
-## Description 
+## About
+A skill that allows voice control over your mouse and keyboard using natural language.  This skill should be compatible with any Mycroft instance that is installed on a system with display drivers / screen.
 
-A Mycroft AI skill to enable keyboard and mouse manipulation using natural language.
-
-## Recent Updates:
-
-Mouse movement by voice now works, updated for 18.02 version or later of Mycroft
-
-## Examples 
+## Examples
 * "type Mycroft is awesome"
 * "press enter"
 * "move mouse to 400 and 100"
@@ -21,9 +16,19 @@ Mouse movement by voice now works, updated for 18.02 version or later of Mycroft
 * "select all"
 * "select all and copy"
 
-## Credits 
+
+## Category
+**Productivity**
+
+## Credits
 TREE Industries
 
-## Require 
-platform_plasmoid 
+## Supported Devices
+platform_plasmoid platform_mark2
+
+## Tags
+#desktop
+#mouse
+#keyboard
+#screen
 

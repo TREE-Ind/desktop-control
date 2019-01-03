@@ -1,0 +1,12 @@
+move the mouse {up} a {small}
+move the mouse {down} a {small}
+move the mouse {left} a {small}
+move the mouse {right} a {small}
+move the mouse {up} {med}
+move the mouse {down} {med}
+move the mouse {left} {med}
+move the mouse {right} {med}
+move the mouse {up} a {large}
+move the mouse {down} a {large}
+move the mouse {left} a {large}
+move the mouse {right} a {large}
