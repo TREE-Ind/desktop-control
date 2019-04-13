@@ -8,6 +8,7 @@ A skill that allows voice control over your mouse and keyboard using natural lan
 * "press the enter key"
 * "move mouse to 400 and 100"
 * "scroll up a bit"
+* "scroll down a bit"
 * "scroll down some"
 * "scroll down a lot"
 * "hold space key"
