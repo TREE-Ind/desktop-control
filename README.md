@@ -1,4 +1,5 @@
 # <img src='https://raw.githack.com/FortAwesome/Font-Awesome/master/svgs/solid/desktop.svg' card_color='#52B54B' width='50' height='50' style='vertical-align:bottom'/> Desktop Control
+Control your mouse and keyboard by voice.
 
 ## About
 A skill that allows voice control over your mouse and keyboard using natural language.  This skill should be compatible with any Mycroft instance that is installed on a system with display drivers / screen.
